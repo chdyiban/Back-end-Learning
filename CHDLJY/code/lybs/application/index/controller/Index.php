@@ -12,4 +12,14 @@ class Index extends Controller
     {
         return $this->fetch();
     }
+    public function login()
+    {
+        if(request()->isAjax()){
+            $data=[
+                'username'=>input('post.username'),
+                'password'=>input('post.password')
+            ]
+        }
+        return $this->fetch();
+    }
 }
