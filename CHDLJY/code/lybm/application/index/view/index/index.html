@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Thinkphp 5.0 留言板</title>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container" style="margin-top:20px;">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+	  <div class="navbar-header">
+      <a class="navbar-brand" href="#">DaWang 留言本</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
+        <li><a href="/add">发布留言</a></li>
+        
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">QQ:228392101</a></li>
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+	
+    <table class="table">
+    	<tr>
+        	<td>编号</td>
+            <td>标题</td>
+            <td>评论</td>
+            <td>发布日期</td>
+            <td>操作</td>
+        </tr>
+        {volist name='list' id='v'}
+        <tr>
+        	<td>{$v.id}</td>
+            <td><a href="/read/{$v.id}">{$v.title}</a></td>
+            <td>20</td>
+            <td>{$v.create_time}</td>
+            <td> <a href="/delete/{$v.id}" class="btn btn-danger">删除</a></td>
+        </tr>
+        {/volist}
+    </table>
+    {$list->render()}
+    <div class="well">
+    用Thinkphp 5.0开发的一款留言本 我也是才转来tp5.0 交流ＱＱ ：228392101
+    </div>
+</div>
+</body>
+</html>
