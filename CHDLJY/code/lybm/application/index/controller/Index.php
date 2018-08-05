@@ -15,14 +15,14 @@ class Index extends Controller
     }
 	public function add(){
 		return $this->fetch();
-		}
+	}
 	public function read($id){
 		$article=article::get(['id'=>$id]);
 		$this->assign('article',$article);
 		$comments=$article->comments;
 		return view('read',['comments'=>$comments]);
 		return $this->fetch();
-		}
+	}
 	public function delete($id){
 		$article=article::get($id);
 		if($article){
