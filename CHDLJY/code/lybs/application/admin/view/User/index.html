@@ -14,18 +14,13 @@
     <table border=1 cellspacing=0 cellspadding=0 style="border-collapse:collapse" align=center width=400 bordercolor=black height=382>
         <tr>
             <td height=25>
-                 <a href="{:url('Index/add')}">[我要写留言]</a> 
-                 <a href="{:url('Admin/login')}">[管理留言]</a>
+                 <a href="add">[我要写留言]</a> 
+                 <a href="">[管理留言]</a>
             </td>
         </tr>
         <tr>
             <td height=200>
-                {volist name='list' id='v'}
-                <tr>
-                    <td>{$v.name}</td>
-                    <td>{$v.article}</td>
-                </tr>
-                {/volist}
+                
             </td>
         </tr>
 
