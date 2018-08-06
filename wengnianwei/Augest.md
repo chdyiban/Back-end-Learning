@@ -8,3 +8,4 @@
 |8.2|复习了substr(),explode()等函数的用法    
 |8.3|无  
 |8.4|学习了array_count_values()、array_combine()等有关数组的一些函数      
+|8.5|无  
