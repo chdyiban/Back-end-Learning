@@ -1,19 +1,13 @@
 <?php
-namespace app\index\controller;
-use app\index\model\Message;
+namespace app\admin\controller;
 use think\Controller;
-class Index extends Controller
+class User extends Controller
 {
     public function index()
     {
-        $list = Message::all('1,2');
-		// $this->assign('list',$list);
-       // return $list;
+        return $this-> fetch();
     }
-    public function add()
-    {
-        return $this->fetch();
-    }
+
     // public function addarticle()
     // {
     //     $message=new MessageModel();  
