@@ -6,7 +6,9 @@ class Index extends Controller
 {
     public function index()
     {
-        $list = Message::all('1,2');
+        $list= Message::all();
+        $this->assign('list',$list);
+        return $this->fetch();
 		// $this->assign('list',$list);
        // return $list;
     }
@@ -14,13 +16,16 @@ class Index extends Controller
     {
         return $this->fetch();
     }
-    // public function addarticle()
-    // {
-    //     $message=new MessageModel();  
-    //     $message->name  = $_POST['name'];
-    //     $message->article= $_POST['content'];
-    //     $message->save();
-    //     return fetch('index');
-    // }
+    public function addarticle()
+    {
+        $message=new Message();  
+        $message->name=input('post.name');
+        $message->article=input('post.article');
+        if($message->save()){
+            return $this->success('留言成功！','index');
+        }else{
+            return $this->success('留言失败');
+        }
+    }
 
 }
