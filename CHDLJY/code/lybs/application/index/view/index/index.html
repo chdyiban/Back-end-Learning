@@ -15,17 +15,18 @@
         <tr>
             <td height=25>
                  <a href="{:url('Index/add')}">[我要写留言]</a> 
-                 <a href="{:url('Admin/login')}">[管理留言]</a>
+                 <a href="{:url('Admin/index/login')}">[管理留言]</a>
             </td>
         </tr>
         <tr>
-            <td height=200>
-                {volist name='list' id='v'}
-                <tr>
-                    <td>{$v.name}</td>
-                    <td>{$v.article}</td>
-                </tr>
-                {/volist}
+            <td height=100>
+                
+                        {volist name='list' id='v'}
+                            {$v.name}<br />
+                            {$v.article}<br /><br />
+                        {/volist}
+                    
+               
             </td>
         </tr>
 
