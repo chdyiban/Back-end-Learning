@@ -1,0 +1,173 @@
+<extend name="Base/common"/>
+
+<block name="style">
+    <link href="__CSS__/issue.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="header">
+    <include file="Public/nav" />
+</block>
+<block name="body">
+
+
+<div class="content-body col-md-12">
+        <h2 class="content-title">
+            {$content.title}
+            <if condition="($content['uid'] eq is_login()) OR check_auth('editIssueContent')">
+
+                            <a class="btn btn-primary " href="{:U('edit',array('id'=>$content['id']))}" style="margin-right: 25px;" ><i class="glyphicon glyphicon-pencil"></i>&nbsp;{:L('_EDIT_')}</a>
+            </if>
+            <span class="pull-right">
+            <if condition="$guide_button eq 1">
+                <a class="btn btn-success " href="{:U('Ucenter/index/aggreeInvite',array('issue_id'=>$content['id']))}"><i class="icon icon-plus-sign"></i>&nbsp;{:L('_AGGREE_GUIDE_')}</a>
+                <script type="text/javascript">
+
+                </script>
+            <elseif condition="$guide_button eq 2" />
+                    <span class="label label-badge label-primary">{:L('_GUIDED_')}</span>
+            </if>
+            <if condition="$watching_button eq 1">
+
+                <a class="btn btn-warning " href="{:U('Ucenter/index/watchingIssue',array('issue_id'=>$content['id']))}"><i class="icon icon-eye-open"></i>&nbsp;{:L('_WATCH_')}</a>
+            <elseif condition="$watching_button eq 2" />
+                <a class="btn btn-warning " href="{:U('Ucenter/index/cancelWatchingIssue',array('issue_id'=>$content['id']))}"><i class="icon icon-eye-open"></i>&nbsp;{:L('_CANCEL_WATCH_')}</a>
+            </if>
+            </span>
+        </h2>
+        <hr/>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <img  style="width: 350px;height: 262px" src="{$content.cover_id|getThumbImageById=350,262}"/>
+                    <span id="issue-content-id" style="display:none;">{$content.id}</span>
+                </div>
+            </div>
+            <div class="col-md-8 ">
+                
+                <div class="row">
+                  <article class="article">
+                    <header>
+                      <dl class="dl-inline">
+                        <dt>团队名称：</dt>
+                        <dd>{$content.tc_name}</dd>
+                        <dt></dt>
+                        <dd class="pull-right">
+                            <if condition="$content.type neq '0'">
+                                <span class="label label-info">
+                                    <php>echo $issue_type[$content['type']]['title'];</php>
+                                </span>
+                            </if> 
+                            <if condition="$content.step eq 2">
+                                <span class="label label-warning">国赛</span>
+                            </if>
+                            <if condition="$content.step eq 1">
+                                <span class="label label-warning">省赛</span>
+                            </if>
+                            <if condition="$content.bind_unitech eq '1'">
+                                <span class="label label-info">产学研</span>
+                            </if> 
+                            <span class="label label-danger"><i class="icon-eye-open"></i> {$content.view_count}</span></dd>
+                      </dl>
+                      <dl class="dl-inline">
+                        <dt>项目阶段：</dt>
+                        <dd>
+                            <if condition="$content.stage eq 0">
+                                创意阶段
+                                <else/>
+                                已注册公司
+                            </if> 
+                        </dd>
+                      </dl>
+                      <dl class="dl-inline">
+                        <dt>队长：</dt>
+                        <dd><a href="{$content.user.space_url}"> {$content.user.name} </a></dd>
+                        <if condition="$content.members neq ''">
+                            <dt>队员：</dt>
+                            <dd>{$content.members}</dd>
+                        </if>
+                        <dt></dt>
+                        <dd></dd>
+                      </dl>
+                      <!--dl class="dl-inline">
+                        <dt>指导老师：</dt>
+                        <dd>
+                            {$advisor}
+                        </dd>
+                      </dl-->
+                      <dl class="dl-inline">
+                        <dt>{:L('_PUBLISH_TIME_')}：</dt>
+                        <dd>{$content.create_time|friendlyDate}</dd>
+                        <dt>{:L('_UPDATE_TIME_')}：</dt>
+                        <dd>{$content.update_time|friendlyDate}</dd>
+                      </dl>        
+<script type="text/javascript">                            
+$(function () {
+    var config = {
+        '.chosen-select': {search_contains: true, drop_width: 200,no_results_text:"{:L('_OPTION_MATCHED_NONE_')}"}
+    };
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+    $('.chosen-btn').click(function(){
+        var chosen_val = $('.chosen-select').val();
+        var issue_id = $('#issue-content-id').text();
+        $.ajax({
+            url: "{:U('Issue/index/invite/')}",
+            type:"POST",
+            data:{ids:chosen_val,issueid:issue_id},
+            dataType: "json",
+            success: function( data ) {
+              console.log(data);
+            }
+        });
+    });
+});
+
+</script>
+<script src="__PUBLIC__/zui/lib/chosen/chosen.js"></script>
+<link href="__PUBLIC__/zui/lib/chosen/chosen.css" type="text/css" rel="stylesheet">
+                      <section class="abstract">
+                        <p><strong>项目简介：</strong>{$content.description}</p>
+                      </section>
+                    </header>
+                  </article>
+                    
+                </div>
+                <div class="row">                  
+                    <div class="pull-right">
+                        {:W('Common/Share/detailShare')}
+                    </div>
+                </div>
+
+           </div>
+
+
+        </div>
+
+    <hr/>
+        <div>
+            <h3>{:L('_INTRO_')}</h3>
+            {$content.content|render}
+        </div>
+    <hr/>
+        <div>
+        <if condition="is_advisor()">
+            <h3>创业计划书</h3>
+            <a href="{:U('Core/File/downloadFile',array('id'=>$content['plan_id']))}" target="_blank">点击下载</a>
+        </if>
+        </div>    
+    <div>
+    {:hook('localComment', array('path'=>"Issue/issueContent/$content[id]", 'uid'=>$content['uid'],'count_model'=>'issue_content','count_field'=>'reply_count','this_url'=>'Issue/Index/issueContentDetail'))}
+    </div>
+</div>
+
+
+    <script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/>
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+    </script>
+
+    <include file="_box"/>
+</block>
+
+

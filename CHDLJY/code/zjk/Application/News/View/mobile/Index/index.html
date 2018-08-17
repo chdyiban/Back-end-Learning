@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>资讯</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mobile/main.css"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mobile/font/iconfont.css"/>
+	</head>
+	<body>
+		<header>
+			<img class="logo" src="__PUBLIC__/images/logo.jpg" alt="创新创业专家库"/>
+			<div class="topSearch">
+				<i class="iconfont icon-search"></i>
+				<input type="search" name="search" id="" value="" />
+			</div>
+			<img class="myAvatar" src="{$yb_user.yb_userhead}" alt="个人中心"/>
+		</header>
+	
+		<ul class="news-list">	
+             <volist name="list" id="data">
+                
+			<li>
+				<a href="{:U('News/index/detail',array('id'=>$data['id']))}">
+
+				<img src="{$data.cover|getThumbImageById=200,146}" width="200" height="146"/>
+				</a>
+				<section>
+					<p>
+						<a href="{:U('News/index/detail',array('id'=>$data['id']))}">{$data.title}</a>
+					</p>
+					<span class="news-user">{$data.user.name}</span>
+					<span class="news-time">{$data.create_time|date='Y-m-d H:i:s',###}</span>
+				</section>
+
+			</li>
+	           
+              </volist>         
+		</ul>
+		<div class="main list-control">
+			{:getPagination($totalCount,modC('NEWS_PAGE_NUM',20,'News'))}
+<!-- 			<section>
+				<a href="javascript:;" class="back unable"><i class="iconfont icon-back"></i></a>
+				<a href="javascript:;" class="active">1</a>
+				<a href="javascript:;">2</a>
+				<a href="javascript:;">3</a>
+				<a href="javascript:;" class="ellipsis">...</a>
+				<a href="javascript:;">8</a>
+				<a href="javascript:;">10</a>
+				<a href="javascript:;" class="forward"><i class="iconfont icon-more"></i></a>
+			</section> -->
+		</div>
+		<footer>
+			<a href="{:U('home/index/index')}" class="tab">
+				<i class="iconfont icon-icon-f1"></i>
+				<span>首页</span>
+			</a>
+			<a href="{:U('people/index/index')}" class="tab">
+				<i class="iconfont icon-users"></i>
+				<span>专家库</span>
+			</a>
+			<a href="{:U('issue/index/index')}" class="tab">
+				<i class="iconfont icon-lights"></i>
+				<span>项目</span>
+			</a>
+			<a href="{:U('news/index/index')}" class="tab active">
+				<i class="iconfont icon-email"></i>
+				<span>资讯</span>
+			</a>
+		</footer>
+	</body>
+	<script src="__PUBLIC__/js/jquery-2.0.3.min.js"></script>
+</html>

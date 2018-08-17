@@ -1,0 +1,12 @@
+INSERT INTO `uctoo_menu`
+(`title`,`pid`,`sort`,`url`,`hide`,`tip`,`group`,`is_dev`,`icon`,`module`)
+VALUES
+	('我的工具','0','0','mytool/menu_list','0','','','0','','Mytool');
+set @tmp_id=0;
+select @tmp_id:= id from `uctoo_menu` where  module= 'Mytool' and pid =0;
+INSERT INTO `uctoo_menu`
+( `title`,`pid`,`sort`,`url`,`hide`,`tip`,`group`,`is_dev`,`icon`,`module`)
+VALUES
+	('模块菜单列表',@tmp_id,'0','mytool/menu_list','0','','模块菜单','0','','Mytool'),
+	('模块菜单sql生成',@tmp_id,'0','mytool/menu_sql','1','','模块菜单','0','','Mytool')
+;

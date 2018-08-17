@@ -1,0 +1,262 @@
+<if condition="check_auth('addIssueContent')">
+    <!-- Modal -->
+    <div id="frm-post-popup" class="white-popup mfp-hide boxShadowBorder" style="max-width: 100%">
+        <h2>{:L('_EDIT_')}</h2>
+
+        <div class="aline" style="margin-bottom: 10px"></div>
+        <div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="controls">
+                        <input type="file" id="upload_picture_cover">
+
+                        <div class="upload-img-box" style="margin-top: 20px;width: 250px">
+                            <div class="upload-pre-item"><img src="{$content.cover_id|get_cover='path'}"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <form class="form-horizontal  ajax-form" role="form" action="{:U('Issue/Index/doPost')}"
+                          method="post">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">{:L('_TITLE_')}</label>
+
+                            <div class="col-sm-10">
+                                <input id="title" name="title" class="form-control" value="{$content.title}" placeholder="{:L('_TITLE_')}"/>
+                            </div>
+                            <input type="hidden" name="id" id="id" value="{$content.id}"/>
+                            <input type="hidden" name="cover_id" id="cover_id_cover" value="{$content.cover_id}"/>
+                            <input type="hidden" name="plan_id" id="plan_id_plan" value="{$content.plan_id}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="issue_id" class="col-sm-2 control-label">{:L('_CATEGORY_')}</label>
+
+                            <div class="col-sm-4">
+                                <select id="issue_top" name="issue_id" class="form-control">
+                                    <volist name="tree" id="top">
+                                        <option value="{$top.id}" <eq name="top_issue" value="$top['id']"> selected</eq>>
+                                            {$top.title}
+                                        </option>
+                                    </volist>
+                                </select>
+                            </div>
+                            
+                            <!--div class="col-sm-5">
+                                <select id="issue_second" name="issue_id" class="form-control">
+                                  <option>{:L('_PLEASE_SELECT_ONE_LEVEL_')}</option>
+                                </select>
+                            </div-->
+                            <label for="issue_type" class="col-sm-2 control-label">{:L('_COMPETION_TYPE_')}</label>
+                            <div class="col-sm-4">
+                                <select id="issue_second" name="issue_type" class="form-control">
+                                  <volist name="issue_type" id="vo">
+                                        <option value="{$vo.id}" <eq name="issue_type_id" value="$vo['id']"> selected</eq>>
+                                            {$vo.title}
+                                        </option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">{:L('_COMPANY_')}</label>
+                            <div class="col-sm-10">
+                                <input id="company-name" name="tc_name" type="text" class="form-control" value="" placeholder="输入团队或公司名称"/>
+                            </div>
+                        </div>
+                        <!-- 团队信息 start-->
+                        <div class="form-group team">
+                            <label for="" class="col-sm-2 control-label">{:L('_TEAM_MEMBER_')}</label>
+                            <div class="col-sm-10">
+                                <input id="team-members" name="members" type="text" class="form-control" value="" placeholder="输入团队成员姓名，以空格分割"/>
+                            </div>
+                        </div>
+                        <!--div class="form-group team">
+                            <label for="" class="col-sm-2 control-label">指导老师</label>
+                            <div class="col-sm-10">
+                            <select data-placeholder="选择指导老师..." class="chosen-select form-control" tabindex="2" multiple="">
+                                <volist name="advisor" id="voo">
+                                    <option value="{$voo.uid}"> {$voo.name} </option>
+                                </volist>
+                            </select>
+                            </div>
+                        </div-->
+                        <!-- 团队信息 end -->
+                        <div class="form-group">
+                            <label for="url" class="col-sm-2 control-label">{:L('_URL_')}</label>
+                            <div class="col-sm-10">
+
+                                <input id="url" name="url" type="text" class="form-control" value="" placeholder="{:L('_PLEASE_INPUT_URL_')}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stage" class="col-sm-2 control-label">{:L('_STAGE_')}</label>
+                            <div class="col-sm-10">
+                              <label for="stage_0" class="col-sm-2 radio">
+                                <input id="stage_0" type="radio" name="stage" value="0"/> 创意阶段
+                              </label>
+                              <label for="stage_1" class="col-sm-3 radio">
+                                <input id="stage_1" type="radio" name="stage" value="1"/> 已注册公司
+                              </label>
+                              
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">{:L('_BIND_UNITECH_')}</label>
+                            <div class="col-sm-10">
+                              <label for="bind_unitech_1" class="col-sm-1 radio">
+                                <input id="bind_unitech_1" type="radio" name="bind_unitech" value="1"/> 是
+                              </label>
+                              <label for="binc_unitech_0" class="col-sm-1 radio">
+                                <input id="bind_unitech_0" type="radio" name="bind_unitech" value="0"/> 否
+                              </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">{:L('_DESCRIPTION_')}</label>
+                            <div class="col-sm-10 control-label">
+                                <textarea class="form-control" name="description" placeholder="项目简介，200字以内" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-2 control-label">{:L('_INTRO_')}</label>
+
+                            <div class="col-sm-10">
+
+                                <php>
+                                        $config="toolbars:[['source','|','bold','italic','underline','fontsize','forecolor','fontfamily','backcolor','|','link','emotion','scrawl','attachment','insertvideo','insertimage','insertcode']]";</php>
+                                </php>
+                                {:W('Common/Ueditor/editor',array('myeditor_edit','content',$content['content'],'600px','480px',$config))}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="file" class="col-sm-2 control-label">项目计划书</label>
+                            <div class="col-sm-10 controls">
+                                <input type="file" id="upload_business_plan">
+        
+                                <div class="upload-project-box" style="margin-top: 20px;width: 250px">
+                                    <div class="upload-pre-item"><img src="{$content.plan_id|get_cover='path'}"></div>
+                                </div>
+                            </div>
+    
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-2">
+                                <button type="submit" class="btn btn-primary " href="{:U('Issue/Index/doPost')}">{:L('_SUBMIT_')}
+                                </button>
+
+                            </div>
+                            <div class="col-sm-8">
+                                <button onclick="history.go(-1);" class="btn btn-primary " href="{:U('Issue/Index/doPost')}">{:L('_RETURN_')}
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/zui/lib/chosen/chosen.js"></script>
+    <script>
+        $("#upload_picture_cover").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "{:L('_UPLOAD_COVER_')}",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+            "width": 250,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.jpg; *.png; *.gif;',
+            "onUploadSuccess": uploadPicturecover,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function () {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                $("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            }, 'onUploadComplete': function (file) {
+                //alert('The file ' + file.name + ' finished processing.');
+            }, 'onUploadStart': function (file) {
+                //alert('Starting to upload ' + file.name);
+            }, 'onQueueComplete': function (queueData) {
+                // alert(queueData.uploadsSuccessful + ' files were successfully uploaded.');
+            }
+        });
+        function uploadPicturecover(file, data) {
+            var data = $.parseJSON(data);
+            var src = '';
+            if (data.status) {
+                $("#cover_id_cover").val(data.id);
+                src = data.url || data.path
+                $('.upload-img-box').html(
+                        '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                );
+            } else {
+                toast.error("{:L('_ERROR_FAIL_UPLOAD_COVER_')}","{:L('_PROMPT_')}");
+            }
+        }
+    </script>
+    <script>
+        $("#upload_business_plan").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "{:L('_UPLOAD_PLAN_')}",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadFile',array('session_id'=>session_id()))}",
+            "width": 250,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.pdf; *.doc; *.docx;',
+            "onUploadSuccess": uploadProjectPlan,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function () {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                $("#plan_id_plan").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            }, 'onUploadComplete': function (file) {
+                alert('The file ' + file.name + ' finished processing.');
+            }, 'onUploadStart': function (file) {
+                //alert('Starting to upload ' + file.name);
+            }, 'onQueueComplete': function (queueData) {
+                // alert(queueData.uploadsSuccessful + ' files were successfully uploaded.');
+            }
+        });
+        function uploadProjectPlan(file, data) {
+            var data = $.parseJSON(data);
+            var src = "__PUBLIC__/images/document.png";
+            if (data.status) {
+                $("#plan_id_plan").val(data.data.download.id);
+                $('.upload-project-box').html(
+                        '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                );
+            } else {
+                toast.error("{:L('_ERROR_FAIL_UPLOAD_COVER_')}","{:L('_PROMPT_')}");
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+$('select.chosen-select').chosen({
+    no_results_text: '没有找到',    // 当检索时没有找到匹配项时显示的提示文本
+    disable_search_threshold: 3, // 10 个以下的选择项则不显示检索框
+    search_contains: true         // 从任意位置开始检索
+});
+/*
+$('select.chosen-select input').on('change',function(){
+    $.ajax({
+      url: "/change/name/autocomplete/"+request.term+"/",
+      dataType: "json",
+      beforeSend: function(){$('ul.chosen-results').empty();},
+      success: function( data ) {
+        $.map( data, function( item ) {
+          $('ul.chosen-results').append('<li class="active-result">' + item.name + '</li>');
+        });
+        $('.my_select_box').trigger('chosen:updated');
+      }
+    });
+});*/
+    </script>
+    </block>
+</if>

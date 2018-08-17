@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>长安大学创新创业专家库-项目详情</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mobile/main.css"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mobile/font/iconfont.css"/>
+	</head>
+	<body>
+		<header>
+			<img class="logo" src="__PUBLIC__/images/logo.jpg" alt="创新创业专家库"/>
+			<div class="topSearch">
+				<i class="iconfont icon-search"></i>
+				<input type="search" name="search" id="" value="" />
+			</div>
+			<img class="myAvatar" src="{$yb_user.yb_userhead}" alt="个人中心"/>
+		</header>
+		<div class="banner page-banner">
+			<img src="{$content.cover_id|getThumbImageById=350,262}" width="100%"/>
+			<div>
+				<p class="range">
+					<span>
+					<if condition="$content.step eq 2">
+                                <span class="label label-warning">国赛</span>
+                            </if>
+                            <if condition="$content.step eq 1">
+                                <span class="label label-warning">省赛</span>
+                            </if>
+                           
+					</span>
+				</p>
+				<p class="views">
+					<i class="iconfont icon-browse"></i>
+					<span>{$content.view_count}</span>
+				</p>
+			</div>
+		</div>
+		<div class="main project-file">
+			<h1>{$content.title}</h1>
+			<ul class="panel">
+				<li>
+					<label>团队名称： </label><span>{$content.tc_name}</span> 
+				</li>
+				<li>
+					<label>项目阶段： </label><span><if condition="$content.stage eq 0">创意阶段<else/>已注册公司</if> </span> 
+				</li>
+				<li>
+					<label>队长： </label><span>{$content.user.name} </span> 
+				</li>
+				<li>
+					<label>发布时间：</label><span> {$content.create_time|friendlyDate}</span> 
+				</li>
+				<li>
+					<label>更新时间：</label><span> {$content.update_time|friendlyDate}</span>
+				</li>
+				<li>
+					<label>项目简介：</label><span>{$content.description}</span> 
+				</li>
+			</ul>
+			<h2>项目介绍</h2>
+			<article class="panel">
+				            {$content.content|render}
+			</article>
+		</div>
+		<footer>
+			<a href="{:U('home/index/index')}" class="tab">
+				<i class="iconfont icon-icon-f1"></i>
+				<span>首页</span>
+			</a>
+			<a href="{:U('people/index/index')}" class="tab">
+				<i class="iconfont icon-users"></i>
+				<span>专家库</span>
+			</a>
+			<a href="{:U('issue/index/index')}" class="tab active">
+				<i class="iconfont icon-lights"></i>
+				<span>项目</span>
+			</a>
+			<a href="{:U('news/index/index')}" class="tab">
+				<i class="iconfont icon-email"></i>
+				<span>资讯</span>
+			</a>
+		</footer>
+	</body>
+	<script src="__PUBLIC__/js/jquery-2.0.3.min.js"></script>
+</html>

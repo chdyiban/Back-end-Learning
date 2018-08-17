@@ -1,0 +1,8 @@
+/*.sh
+/.idea
+.user.ini
+/Runtime
+/Data
+/Conf/common.php
+/Conf/user.php
+/Uploads

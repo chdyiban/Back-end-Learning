@@ -1,0 +1,28 @@
+<extend name="Base/common"/>
+
+<block name="body">
+    <link href="__CSS__/home.css" type="text/css" rel="stylesheet">
+    <!-- 主体 -->
+    <!--顶部Banner-->
+    <div class="container common_block_border" style="position: relative">
+    	<div class="row">
+    		<div class="">
+    			{:W('Common/Adv/render',array(array('name'=>'slider','width'=>'1120px','height'=>'300px','title'=>'首页顶部广告')))}
+    		</div>
+    	</div>
+    	
+    	<div class="row">
+            <div class="col-xs-8">
+                <div class="common_block_border">
+                	{:W('Issue/HomeBlock/render')}
+                </div>
+                <div class="common_block_border">
+                	{:W('People/HomeBlock/render')}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                {:W('News/Hot/lists')}
+            </div>
+        </div>
+    </div>
+</block>
