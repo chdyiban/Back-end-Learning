@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>长安大学创新创业专家库-首页</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mobile/jquery.modal.min.css"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mobile/main.css"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mobile/font/iconfont.css"/>
+	</head>
+	<body>
+		<header>
+			<img class="logo" src="__PUBLIC__/images/logo.jpg" alt="创新创业专家库"/>
+			<div class="topSearch">
+				<i class="iconfont icon-search"></i>
+				<input type="search" name="search" id="" value="" />
+			</div>
+			<img class="myAvatar" src="{$yb_user.yb_userhead}" alt="个人中心"/>
+		</header>
+		<div class="banner">
+			<img src="__IMG__/user_top_default_bg.jpg"/>
+			<div class="banner-text-shadow">
+				<span><i class="iconfont icon-glyph-avatar-professor-white-man"></i>{$yb_user.yb_username}</span>
+				<span>{$yb_user.yb_schoolname}</span>
+			</div>
+		</div>
+		<div class="release">
+			<a href="#ex1" rel="modal:open" class="btn-release">发布项目</a>
+			<a href="{:U('people/index/index')}">咨询专家</a>
+			<a href="{:U('issue/index/index')}">寻找投资</a>
+		</div>
+		<div class="main tags">
+			<span>专家类型：</span>
+			<a href="javascript:;" class="tag active">所有</a>
+			<a href="javascript:;" class="tag">投资人</a>
+			<a href="javascript:;" class="tag">科研专家</a>
+			<a href="javascript:;" class="tag">创业孵化</a>
+			
+		</div>
+		<div class="main professor-list">
+		 <volist name="lists.data" id="vo">
+                <ul>
+				<li>
+				<a href="{:U('Mobile/index/professor_page',array('uid'=>$vo['uid']))}" target="_blank">
+					<img class="avatar" src="{$vo.avatar128}"/>
+				</a>	
+					<section>
+						<span><a href="{$vo.space_url}">{$vo.name|htmlspecialchars}</a></span>
+						<p class="status">
+							<span>指导项目 {$vo.issue_list}</span>
+							<span>关注项目 {$vo.watching_issue_list}</span>
+							<span class="hot">人气值 {$vo.score1}</span>
+						</p>
+						<p>{$vo.field_data}</p>
+					</section>
+				</li>
+			</ul>
+         </volist>
+			
+		</div>
+		<div class="main more-wrap">
+			<a href="#" class="more">更多</a>
+		</div>
+		<footer>
+			<a href="{:U('home/index/index')}" class="tab active">
+				<i class="iconfont icon-icon-f1"></i>
+				<span>首页</span>
+			</a>
+			<a href="{:U('people/index/index')}" class="tab">
+				<i class="iconfont icon-users"></i>
+				<span>专家库</span>
+			</a>
+			<a href="{:U('issue/index/index')}" class="tab">
+				<i class="iconfont icon-lights"></i>
+				<span>项目</span>
+			</a>
+			<a href="{:U('news/index/index')}" class="tab">
+				<i class="iconfont icon-email"></i>
+				<span>资讯</span>
+			</a>
+		</footer>
+		<div id="ex1" class="modal">
+		  <p>仅对长安大学参赛人员开放</p>
+		</div>
+	</body>
+	<script src="__PUBLIC__/js/jquery-2.0.3.min.js"></script>
+	<script src="__JS__/jquery.modal.min.js"></script>
+</html>

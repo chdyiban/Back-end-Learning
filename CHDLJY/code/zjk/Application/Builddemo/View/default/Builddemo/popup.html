@@ -1,0 +1,19 @@
+<block name="style">
+    <style type="text/css">
+         .ajax-form{ overflow: hidden;}
+         .ajax-form .form-div{ overflow: hidden; margin-bottom: 10px;}
+         .ajax-form .form-div .left{ text-align: right;}
+         .is_confirm_text{ font-size: 18px; text-align: center;}
+         .is_confirm_box input{ width: 50%; float: left;}
+    </style>
+</block>
+<!-- 模态框HTML -->
+<form class="ajax-form" method="post" action="{:U('admin/builddemo/popup')}">
+
+	<div class="is_confirm_box">
+		<p class="is_confirm_text">要确认操作吗？</p>
+		<input type="submit" data-role="submitreport" value="确定" class="btn btn-primary send_box">
+		<input type="button" value="取消" class="btn send_box" data-dismiss="modal">
+	</div>
+
+</form>

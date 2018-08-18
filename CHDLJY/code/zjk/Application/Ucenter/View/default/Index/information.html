@@ -1,0 +1,73 @@
+<extend name="Base/common"/>
+
+<block name="style">
+    <link href="__CSS__/usercenter.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="header">
+    <br/>
+</block>
+<block name="body">
+    <script>
+        function center_toggle(name) {
+            var show = $('#' + name + '_panel').css('display');
+            $('.center_panel').hide();
+            $('.center_arrow_right').show();
+            $('.center_arrow_bottom').hide()
+            if (show == 'none') {
+                $('#' + name + '_panel').show();
+                $('#' + name + '_toggle_right').hide();
+                $('#' + name + '_toggle_bottom').show()
+            } else {
+                $('#' + name + '_toggle_right').show();
+                $('#' + name + '_toggle_bottom').hide()
+            }
+
+        }
+    </script>
+    <div class="col-xs-12 usercenter">
+        <div class="uc">
+            <include file="_top"/>
+            <include file="_top_menu"/>
+
+            <div class="row uc_content">
+                <div class="col-xs-7">
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-xs-12 uc_information" style="margin-left: 10px;">
+                            <ul class="nav nav-pills ucenter-tab">
+                                <volist name="profile_group_list" id="vl" key="k">
+                                    <li <if condition="$k eq 1">class="active"</if> ><a href="#expand_tab_{$vl.id}" data-toggle="tab">{$vl.profile_name}</a></li>
+                                </volist>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <volist name="profile_group_list" id="group_vl" key="k">
+                            <div class="tab-pane <if condition='$k eq 1'>active</if>" id="expand_tab_{$group_vl.id}">
+                                <div class="panel-body expand_info">
+                                    <volist name="group_vl['info_list']" id="info_vl">
+                                    <notempty name="info_vl.field_data">
+                                        <dl class="dl-horizontal">
+                                            <dt>{$info_vl.field_name}：</dt>
+                                            <dd>{$info_vl.field_data|default=L('')}</dd>
+                                        </dl>
+                                    </notempty>
+                                    </volist>
+                                    <if condition="count($group_vl['info_list']) eq 0"><p class="text-muted"
+                                                                                          style="text-align: center; font-size: 15px;margin: 15px;">
+
+                                        {:L('_MESSAGE_EXPAND_NONE_')}{:L('_EXCLAMATION_')}
+                                    </p></if>
+
+                                </div>
+                            </div>
+                        </volist>
+                    </div>
+                </div>
+                <div class="col-xs-5 uc_other_link">
+                    <include file="_right_link"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+

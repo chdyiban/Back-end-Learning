@@ -1,0 +1,102 @@
+<div class="uc_top_bg">
+    <if condition="$user_info['cover_id']">
+        <img class="uc_top_img_bg" src="{$user_info['cover_path']}" style="width: 100%;height: 100%">
+        <else/>
+        <img class="uc_top_img_bg" src="__IMG__/user_top_default_bg.jpg" style="width: 100%;height: 100%">
+    </if>
+    <if condition="is_login() && $user_info['uid'] eq is_login()">
+        <div class="change_cover"><a data-type="ajax" data-url="{:U('Ucenter/Public/changeCover')}" data-toggle="modal" data-title="{:L('_UPLOAD_PERSONAL_COVER_')}" style="color: white;"><img class="img-responsive" src="__CORE_IMAGE__/fractional.png"></a>
+        </div>
+    </if>
+</div>
+<div class="row uc_info">
+    <div class="col-xs-3">
+        <dl>
+            <dt>
+                <a href="{$user_info.space_url}" title="">
+                    <img src="{$user_info.avatar128}" class="avatar-img img-responsive top_img"/>
+                </a>
+            </dt>
+            <dd>
+                <div>
+                    <div class="col-xs-6 text-center">
+                        <a href="{:U('Ucenter/Index/fans',array('uid'=>$user_info['uid']))}" title="{:L('_FANS_NUMBER_')}">{$issue_count|default=0}</a><br>{:L('_DUIDANCE_')} 
+                    </div>
+                    <div class="col-xs-6 text-center">
+                        <a href="{:U('Ucenter/Index/following',array('uid'=>$user_info['uid']))}" title="{:L('_FOLLOWERS_NUMBER_')}">{$watching_issue_count|default=0}</a><br>{:L('_WATCHING_')}
+                    </div>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="col-xs-6">
+        <div class="uc_main_info">
+            <div class="uc_m_t_12 uc_m_b_12 uc_uname">
+                <span>
+                    <a ucard="{$user_info.uid}" href="{$user_info.space_url}" title="">{$user_info.name|htmlspecialchars}</a>
+                </span>
+                    <span>
+                        {:W('Common/UserRank/render',array($user_info['uid']))}
+            </span>
+            </div>
+            <div class="uc_m_b_12" style="width: 100%">{:L('_SIGNATURE_')}{:L('_COLON_')}<span>
+                <if condition="$user['extra']['about'] eq ''">
+                    {:L('_NO_IDEA_')}
+                    <else/>
+                    <attr title="{$user.extra.about}">{$user.extra.about}</attr>
+                </if>
+            </span></div>
+            <notempty name="user_info['tags']">
+                <div class="uc_m_b_12">
+                    <span>
+                        {:L('_PERSONAL_TAB_')}{:L('_COLON_')}
+                        <volist name="user_info['tags']" id="tag">
+                            &nbsp;<a href="{:U('people/index/index',array('tag'=>$tag['id']))}" class="label label-badge label-default">{$tag.title}</a>&nbsp;
+                        </volist>
+                    </span>
+                </div>
+            </notempty>
+        </div>
+    </div>
+    <if condition="is_login() && $user_info['uid'] != get_uid()">
+        <div class="col-xs-3">
+            <div class="uc_follow">
+                <button type="button" class="btn btn-default" onclick="talker.start_talk({$user_info['uid']})"
+                       style="margin-right:15px; ">{:L('_CONSULT_')}
+                </button>
+                <button type="button" href="#invite-guide-popup" class="btn btn-primary open-popup-link">{:L('_INVITE_GUIDE_')}
+                </button>
+            </div>
+        </div>
+        <div id="invite-guide-popup" class="white-popup boxShadowBorder mfp-hide" style="max-width:50%;">
+            <h3>请选择您需要邀请指导的项目</h3>
+            <div>
+                <select data-placehoder="请选择您需要被指导的项目" class="chosen-select form-control" tabindex="1">
+                    <option value=""></option>
+                <volist name="user_issue_info" id="vo">
+                    <option value="{$vo.id}">{$vo.title}</option>
+                </volist>
+                </select>
+            </div>
+            <br/>
+            <div>
+                <button class="btn btn-primary confirm-invite" type="button">确定邀请</button>
+            </div>
+        </div>
+        <link href="__PUBLIC__/zui/lib/chosen/chosen.min.css" rel="stylesheet">
+        <script src="__ZUI__/lib/chosen/chosen.js"></script>
+        <script>
+        $('select.chosen-select').chosen({
+            width:'100%'
+        });
+        $('.confirm-invite').click(function () {
+            var issue_id = $('.chosen-select').val();
+            console.log(issue_id);
+            $.post("{:U('ucenter/index/inviteGuide',array('advisor_id'=>$user_info['uid']))}",{issue_id:issue_id}, function (msg) {
+                toast.success(msg.message);
+            }, 'json')
+        });
+        </script>
+
+    </if>
+</div>

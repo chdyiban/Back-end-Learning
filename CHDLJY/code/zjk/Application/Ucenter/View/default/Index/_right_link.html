@@ -1,0 +1,47 @@
+<div>
+    <div class="uc_link_block clearfix col-xs-12">
+        <div class="uc_link_top clearfix">
+            <div class="uc_title">
+                <if condition="$uid eq is_login()">{:L('_I_')}<else/>{:L('_TA_')}</if>{:L('_DE_DUIDANCE_')}({$issue_count|default=0})
+            </div>
+            <div class="uc_fl_right uc_more_link"><a href="#">{:L('_MORE_')}</a></div>
+        </div>
+        <div class="col-xs-12 uc_link_info">
+            <volist name="issue_list" id="issue">
+               <ul class="list-group" style="margin-bottom:0;">
+                 <li class="list-group-item">
+                   <a href="{:U('Issue/Index/issueContentDetail',array('id'=>$issue['id']))}">{$issue.title}({$issue.tc_name})</a>
+                 </li>
+               </ul>
+            </volist>
+            <if condition="count($issue) eq 0"><p style="text-align: center; font-size: 24px;">
+                <br><br>
+                {:L('_FOLLOWER_NOTHING_')}{:L('_WAVE_')}
+                <br><br><br>
+            </p></if>
+        </div>
+
+    </div>
+    <div class="uc_link_block clearfix col-xs-12" style="margin-top: 10px;">
+        <div class="uc_link_top clearfix">
+            <div class="uc_title">
+                <if condition="$uid eq is_login()">{:L('_I_')}<else/>{:L('_TA_')}</if>{:L('_DE_WATCHING_')}({$watching_issue_count|default=0})
+            </div>
+            <div class="uc_fl_right uc_more_link"><a href="#">{:L('_MORE_')}</a></div>
+        </div>
+        <div class="col-xs-12 uc_link_info">
+            <volist name="watching_issue_list" id="issue">
+               <ul class="list-group" style="margin-bottom:0;">
+                 <li class="list-group-item">
+                   <a href="{:U('Issue/Index/issueContentDetail',array('id'=>$issue['id']))}">{$issue.title}({$issue.tc_name})</a>
+                 </li>
+               </ul>
+            </volist> 
+            <if condition="$watching_issue_count eq 0"><p style="text-align: center; font-size: 24px;">
+                <br><br>
+                {:L('_FANS_NOTHING_')}{:L('_WAVE_')}
+                <br><br><br>
+            </p></if>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="block-bar">
+    <div class="container">
+        <div class="block-body">
+            <div class="">
+                <div class="common-block">
+                    <h2>
+                        {:modC('USER_SHOW_TITLE1',L('_ACTIVE_MEMBER_'),'People')}
+                    </h2>
+
+                    <volist name="people1" id="v">
+                      <div class="col-xs-6">
+                        <a class="card" href="{$v.user.space_url}">
+                          <div class="col-xs-2">
+
+                            <img class="avatar-img" src="{$v.user.avatar128}" alt="" style="margin-top:10px;">
+                          </div>
+                          <div class="col-xs-10">
+                          <div class="card-heading">
+                            <strong>{$v.user.name}</strong>
+                          </div>
+                          <div class="card-content text-muted">简介:{$v.introduction|msubstr=0,30,'utf-8',true}</div>
+                          <div class="card-actions">
+                            <span class="label label-primary">{$v.workat}</span>
+                          </div>
+                          </div>
+                        </a>
+                      </div>
+                    </volist>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(function () {
+        ucard();
+    })
+</script>
